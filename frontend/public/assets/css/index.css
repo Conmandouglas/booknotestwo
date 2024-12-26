@@ -1,0 +1,71 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+card {
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  padding: 12px;
+}
+
+img {
+  object-fit: cover;
+  width: 85%;
+}
+
+card {
+  border: 6px solid rgba(180, 180, 180, 0.732);
+  border-radius: 6px;
+  background-color: rgba(229, 229, 229, 0.499);
+}
+
+.book-info {
+  display: flex;
+  align-items: center;
+}
+
+.book-info p {
+  margin: 12px;
+  align-self: flex-end;
+}
+.details {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.details p {
+  margin-right: 12px;
+}
+
+review {
+  background-color:rgba(132, 189, 255, 0.239);
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+}
+
+review p {
+  border: black;
+}
+
+review .details {
+  width: 100%;
+}
+
+review .row {
+  display: flex;
+}
+
+review .row p {
+  margin-right: 12px;
+}
+
+buttonGroup {
+  display: flex;
+  justify-content: space-around;
+  padding: 4px;
+}
+
+
+

@@ -1,0 +1,30 @@
+<%- include('partials/_header.ejs') %>
+
+<section>
+  <heading>
+    <h1>Most Reviewed</h1>
+    <hr/>
+  </heading>
+  <card>
+    <% for(let i = 0; i < list.length; i++){ %>
+      <div class="item">
+        <p> This is one item</p>
+        <p><%= list[i].title %></p>
+        <p><%= list[i].author_name %></p>
+        <div class="reviews">
+          <h3>Reviews:</h3>
+          <% for(let j = 0; j < list[i].reviews.length; j++){ %>
+            <div class="review">
+              <p>Review by: <%= list[i].reviews[j].user_id %></p>
+              <p>Rating: <%= list[i].reviews[j].grade %></p>
+              <p><%= list[i].reviews[j].text %></p>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% } %>
+  </card>
+</section>
+<hr>
+
+<%- include('partials/_footer.ejs') %>
