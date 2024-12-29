@@ -4,24 +4,39 @@
   <heading>
     <h1>Most Reviewed</h1>
     <hr/>
+    <button><a href="/add">Create Post</a></button>
   </heading>
   <card>
-    <% for(let i = 0; i < list.length; i++){ %>
-      <div class="item">
-        <p> This is one item</p>
-        <p><%= list[i].title %></p>
-        <p><%= list[i].author_name %></p>
-        <div class="reviews">
-          <h3>Reviews:</h3>
-          <% for(let j = 0; j < list[i].reviews.length; j++){ %>
-            <div class="review">
-              <p>Review by: <%= list[i].reviews[j].user_id %></p>
-              <p>Rating: <%= list[i].reviews[j].grade %></p>
-              <p><%= list[i].reviews[j].text %></p>
-            </div>
-          <% } %>
+    <% if (error) { %>
+      <p style="color: red;"><%= error %></p>
+    <% } %>
+    <% if (list.length === 0) { %>
+      <p>No books found.</p>
+    <% } else { %>
+      <% for(let i = 0; i < list.length; i++){ %>
+        <div class="item">
+          <p> This is one item</p>
+          <p><%= list[i].title %></p>
+          <p><%= list[i].author_name %></p>
+          <div class="reviews">
+            <h3>Reviews:</h3>
+            <% for(let j = 0; j < list[i].reviews.length; j++){ %>
+              <div class="review">
+                <p>Review by: <%= list[i].reviews[j].user_id %></p>
+                <p>Rating: <%= list[i].reviews[j].grade %></p>
+                <p><%= list[i].reviews[j].text %></p>
+                <button><a href="/edit/<%= list[i].id %>">Edit Post</a></button>
+                <form action="/reviews/delete/<%= list[i].reviews[j].id %>" method="post" style="display:inline;">
+                  <button type="submit">Delete Review</button>
+                </form>
+              </div>
+            <% } %>
+          </div>
+          <form action="/books/delete/<%= list[i].id %>" method="post" style="display:inline;">
+            <button type="submit">Delete Book</button>
+          </form>
         </div>
-      </div>
+      <% } %>
     <% } %>
   </card>
 </section>

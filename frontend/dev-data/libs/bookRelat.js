@@ -1,4 +1,4 @@
-import { reviews } from "./reviewsRelat.js";
+import { fetchReviews } from "./reviewsRelat.js";
 import pg from "pg";
 
 const db = new pg.Client({
@@ -11,17 +11,8 @@ const db = new pg.Client({
 
 await db.connect().catch(err => console.log(err));
 
-const checkBooksQuery = `
-  SELECT *
-  FROM books
-  ORDER BY id DESC;
-`;
-const result = await db.query(checkBooksQuery);
-
-const booksResult = result.rows;
-console.log("array of books:" + booksResult);
-
-const getReviews = (bookId) => {
+const getReviews = async (bookId) => {
+  const reviews = await fetchReviews();
   let grades = [];
   const bookReviews = reviews.filter((review) => {
     if (review.book_id === bookId) {
@@ -34,18 +25,31 @@ const getReviews = (bookId) => {
   return { bookReviews, avrg };
 }
 
-let books = [];// use errors and error handling to debug this
-booksResult.forEach(book => {
-  const { bookReviews, avrg } = getReviews(book.id);
-  books.push({
-    id: book.id,
-    title: book.title,
-    author_name: [book.author_name],
-    img: "https://covers.openlibrary.org/b/olid/OL51711454M-M.jpg",
-    reviews: bookReviews,
-    average: avrg,
-  });
-  console.log("books updated! heres one:" + books);
-});
+const fetchBooks = async () => {
+  const checkBooksQuery = `
+    SELECT *
+    FROM books
+    ORDER BY id DESC;
+  `;
+  const result = await db.query(checkBooksQuery);
+  const booksResult = result.rows;
+  console.log("array of books:", booksResult);
 
-export { books };
+  let books = [];
+  for (const book of booksResult) {
+    const { bookReviews, avrg } = await getReviews(book.id);
+    books.push({
+      id: book.id,
+      title: book.title,
+      author_name: [book.author_name],
+      img: "https://covers.openlibrary.org/b/olid/OL51711454M-M.jpg",
+      reviews: bookReviews,
+      average: avrg,
+    });
+    console.log("books updated! here's one:", books);
+  }
+
+  return books;
+}
+
+export { fetchBooks };

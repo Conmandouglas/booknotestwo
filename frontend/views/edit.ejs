@@ -1,0 +1,38 @@
+<%- include ('partials/_header.ejs') %>
+
+<section>
+  <card>
+    <form id="postForm" method="post" action="/add">
+      <label>Book Details</label>
+      <input type="text" name="title" placeholder="Title" required>
+      <input type="text" name="author_name" placeholder="Author" required>
+      <br>
+      <label>Review</label>
+      <input type="text" name="text" placeholder="Details" required>
+      <br>
+      <label for="gradeScale">Rating:</label>
+      <br>
+      <input id="gradeScale" type="number" name="grade" max="10" min="0" value="10" required><p style="display: inline; font-size: .75rem"> /10</p>
+      <button type="submit">Post</button>
+    </form>
+  </card>
+</section>
+
+    <!-- % //if (locals.review) { % -->
+      <!-- <card>   -->
+        <!-- <form id="editForm" method="post" action="/edit/<%= //review.id %>"> -->
+          <!-- <label>Book Details</label>
+          <input type="text" name="title" placeholder="<%=// %>">
+          <input type="text" name="author_name" placeholder="<%=// %>">
+          <br>-->
+          <!-- <label>Review</label>
+          <input type="text" name="text" placeholder="<%= //review.text %>">
+          <br>
+          <label for="gradeScale">Rating:</label>
+          <br>
+          <input id="gradeScale" type="number" name="grade" max="10" min="0" value="<%= //review.grade %>"><p style="display: inline; font-size: .75rem"> /10</p>
+          <button type="submit">Update</button>
+        </form>
+      </card> -->
+
+<%- include('partials/_footer.ejs') %>
